@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 // 1. Defining Functions
 func sayHello() {
@@ -23,6 +26,14 @@ func addAndSubtract(x int, y int) (sum2 int, difference int) {
 	return
 }
 
+// 3. Multiple Return Values
+func divide(x, y float64) (float64, error) {
+	if y == 0 {
+		return 0, errors.New("Cannot divide by 0")
+	}
+	return x / y, nil
+}
+
 // Main
 func main() {
 	sayHello()
@@ -34,4 +45,16 @@ func main() {
 	sum2, difference := addAndSubtract(9, 6)
 	fmt.Println("The sum is = ", sum2)
 	fmt.Println("The difference is = ", difference)
+
+	result, err := divide(12, 2)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("the division is = ", result)
+	}
+	// Trying division by zero
+	_, error := divide(10, 0)
+	if error != nil {
+		fmt.Println(error)
+	}
 }
